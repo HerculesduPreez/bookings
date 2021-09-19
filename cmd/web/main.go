@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/HerculesduPreez/bookings/pkg/config"
-	"github.com/HerculesduPreez/bookings/pkg/handlers"
-	"github.com/HerculesduPreez/bookings/pkg/render"
+	"github.com/HerculesduPreez/bookings/internal/config"
+	"github.com/HerculesduPreez/bookings/internal/handlers"
+	"github.com/HerculesduPreez/bookings/internal/render"
 
 	"github.com/alexedwards/scs/v2"
 )
@@ -37,7 +37,7 @@ func main() {
 	}
 
 	app.TemplateCache = tc
-	app.UseCache = true
+	app.UseCache = false
 
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
@@ -52,6 +52,8 @@ func main() {
 	}
 
 	err = srv.ListenAndServe()
-	log.Fatal(err)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 }
